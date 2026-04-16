@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     private Rigidbody2D rb;
     public PlayerInputHandler input;
+    public FlashlightAim flashlightAim;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -52,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         float movement = speedDiff * accelRate;
 
         rb.AddForce(Vector2.right * movement);
+
+        flashlightAim.SetFacingDirection(input.MoveInput.x);
     }
 
     private void Jump()
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
-    private void OGizmosSelected() //Debug tool
+    private void OnGizmosSelected() //Debug tool
     {
         if (groundCheck == null) return;
 
