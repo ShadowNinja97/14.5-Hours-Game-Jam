@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour
     public FlashlightAim flashlightAim;
 
     [Header("Movement")]
-    public float moveSpeed = 5f;
-    public float acceleration = 50f;
-    public float deceleration = 60f;
+    public float moveSpeed = 8f;
+    public float acceleration = 60f;
+    public float deceleration = 90f;
+    public float airAcceleration = 25f;
+    public float airDeceleration = 15f;
+    public float upGravityScale = 1f;
+    public float downGravityScale = 1.5f;
 
     [Header("Jump")]
     public float jumpForce = 10f;
@@ -32,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
 
+        flashlightAim.SetFacingDirection(input.MoveInput.x);
+
         if (input.JumpPressed && isGrounded)
         {
             Jump();
@@ -46,15 +52,22 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         float targetSpeed = input.MoveInput.x * moveSpeed;
-        float speedDiff = targetSpeed - rb.linearVelocityX;
 
-        float accelRate = Mathf.Abs(targetSpeed) > 0.01f ? acceleration : deceleration;
+        float accelRate;
 
-        float movement = speedDiff * accelRate;
+        if (isGrounded)
+            accelRate = Mathf.Abs(targetSpeed) > 0.01f ? acceleration : deceleration;
+        else
+            accelRate = Mathf.Abs(targetSpeed) > 0.01f ? airAcceleration : airDeceleration;
 
-        rb.AddForce(Vector2.right * movement);
+        float newX = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.fixedDeltaTime);
 
-        flashlightAim.SetFacingDirection(input.MoveInput.x);
+        rb.linearVelocity = new Vector2(newX, rb.linearVelocity.y);
+
+        if (rb.linearVelocityY > 0.01f)
+            rb.gravityScale = upGravityScale;
+        else if (rb.linearVelocityY < -0.01f)
+            rb.gravityScale = downGravityScale;
     }
 
     private void Jump()
@@ -62,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocityX, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
+
 
     private void CheckGround()
     {
@@ -72,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
-    private void OnGizmosSelected() //Debug tool
+    private void OnDrawGizmosSelected() //Debug tool
     {
         if (groundCheck == null) return;
 

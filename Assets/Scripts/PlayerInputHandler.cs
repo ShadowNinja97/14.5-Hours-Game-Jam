@@ -5,6 +5,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public InputAction MoveAction;
     public InputAction JumpAction;
+    public bool JumpHeld => JumpAction.IsPressed();
 
 
     public Vector2 MoveInput { get; private set; }
