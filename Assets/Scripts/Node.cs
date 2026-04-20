@@ -106,6 +106,8 @@ public class Node : MonoBehaviour, ILightInteractable
             return;
 
         currentCharge += chargeRate * Time.deltaTime;
+        currentCharge = Mathf.Min(currentCharge, requiredCharge);
+
 
         if (currentCharge >= requiredCharge)
         {
@@ -169,14 +171,40 @@ public class Node : MonoBehaviour, ILightInteractable
     public void ApplyLightBrightness(Light2D light)
     {
         if (light == null)
-        {
-            Debug.Log(this + " node is missing a Light2D.");
             return;
+
+        float brightnessPercent;
+
+        switch (nodeType)
+        {
+            case NodeType.Toggle:
+                brightnessPercent = GetToggleLightPercent();
+                break;
+
+            case NodeType.Charge:
+            case NodeType.Sustain:
+            default:
+                brightnessPercent = GetChargePercent();
+                break;
         }
-        
-        float chargePercent = GetChargePercent();
-        //light.intensity = chargedBrightness * chargePercent;
-        light.intensity = Mathf.Lerp(light.intensity, chargedBrightness * chargePercent, Time.deltaTime * 10f);
-        if (light.intensity < 0.01f) light.intensity = 0;
+
+        light.intensity = chargedBrightness * brightnessPercent;
+    }
+
+    private float GetToggleLightPercent()
+    {
+        if (requiredCharge <= 0f)
+            return toggleState ? 1f : 0f;
+
+        float holdPercent = Mathf.Clamp01(currentCharge / requiredCharge);
+
+        if (!toggleState)
+        {
+            // Currently OFF, so shining light builds brightness upward
+            return holdPercent;
+        }
+
+        // Currently ON, so shining light dims it downward toward OFF
+        return 1f - holdPercent;
     }
 }
