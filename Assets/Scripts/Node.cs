@@ -108,7 +108,6 @@ public class Node : MonoBehaviour, ILightInteractable
         currentCharge += chargeRate * Time.deltaTime;
         currentCharge = Mathf.Min(currentCharge, requiredCharge);
 
-
         if (currentCharge >= requiredCharge)
         {
             toggleState = !toggleState;
