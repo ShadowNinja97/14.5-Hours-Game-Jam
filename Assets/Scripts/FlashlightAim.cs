@@ -9,6 +9,11 @@ public class FlashlightAim : MonoBehaviour
     public Camera mainCamera;
     public Light2D light;
 
+    [Tooltip("The trigger hitbox for the flashlight in its default state.")]
+    public PolygonCollider2D NearHitbox;
+    [Tooltip("The trigger hitbox for the flashlight in its aiming state.")]
+    public PolygonCollider2D AimHitbox;
+
     [Header("Input Actions")]
     public InputAction mousePositionAction;
     public InputAction aimModifierAction;
@@ -19,6 +24,7 @@ public class FlashlightAim : MonoBehaviour
     public float defaultAngle = 40f;
     public float aimRadius = 6f;
     public float aimAngle = 20f;
+
 
     private void Awake()
     {
@@ -76,12 +82,16 @@ public class FlashlightAim : MonoBehaviour
     {
         light.pointLightOuterRadius = defaultRadius;
         light.pointLightOuterAngle = defaultAngle;
+        NearHitbox.enabled = true;
+        AimHitbox.enabled = false;
     }
 
     private void ApplyAimLightSettings()
     {
         light.pointLightOuterRadius = aimRadius;
         light.pointLightOuterAngle = aimAngle;
+        NearHitbox.enabled = false;
+        AimHitbox.enabled = true;
     }
 
 
