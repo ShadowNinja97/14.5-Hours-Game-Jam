@@ -16,6 +16,7 @@ public class Node : MonoBehaviour, ILightInteractable
     public UnityEvent fullChargeAction;
     public UnityEvent toggleOnAction;
     public UnityEvent toggleOffAction;
+    public ParticleFX[] Particles;
 
     [Header("Node Stats")]
     public float chargeRate = 1f;
@@ -98,6 +99,7 @@ public class Node : MonoBehaviour, ILightInteractable
             }
         }
         ApplyLightBrightness(nodeLight);
+        ParticleValue();
     }
 
     private void HandleToggle()
@@ -205,5 +207,16 @@ public class Node : MonoBehaviour, ILightInteractable
 
         // Currently ON, so shining light dims it downward toward OFF
         return 1f - holdPercent;
+    }
+
+    private void ParticleValue()
+    {
+        if (Particles.Length == 0 || Particles == null) return;
+
+        foreach (ParticleFX par in Particles)
+        {
+            par.UpdateParticleEmissions(currentCharge / requiredCharge);
+            if (currentCharge == 0) par.UpdateDisplay(true);
+        }
     }
 }
