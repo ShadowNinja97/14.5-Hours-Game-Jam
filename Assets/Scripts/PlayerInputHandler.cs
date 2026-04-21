@@ -5,28 +5,33 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public InputAction MoveAction;
     public InputAction JumpAction;
+    public InputAction InteractAction;
     public bool JumpHeld => JumpAction.IsPressed();
 
 
     public Vector2 MoveInput { get; private set; }
     public bool JumpPressed { get; private set; }
+    public bool InteractPressed { get; private set; }
 
     private void OnEnable()
     {
         MoveAction.Enable();
         JumpAction.Enable();
+        InteractAction.Enable();
     }
 
     private void OnDisable()
     {
         MoveAction.Disable();
         JumpAction.Disable();
+        InteractAction.Disable();
     }
 
     private void Update()
     {
         MoveInput = MoveAction.ReadValue<Vector2>();
         JumpPressed = JumpAction.triggered;
+        InteractPressed = InteractAction.triggered;
     }
 
 }
