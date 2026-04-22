@@ -7,7 +7,7 @@ public class FlashlightAim : MonoBehaviour
     [Header("References")]
     public Transform player;
     public Camera mainCamera;
-    public Light2D light;
+    public Light2D flashLight;
 
     [Tooltip("The trigger hitbox for the flashlight in its default state.")]
     public PolygonCollider2D NearHitbox;
@@ -25,6 +25,7 @@ public class FlashlightAim : MonoBehaviour
     public float aimRadius = 6f;
     public float aimAngle = 20f;
 
+    private bool freeAimHeld = false;
 
     private void Awake()
     {
@@ -46,7 +47,10 @@ public class FlashlightAim : MonoBehaviour
 
     private void Update()
     {
-        bool freeAimHeld = aimModifierAction.IsPressed();
+        if (aimModifierAction.WasPressedThisFrame())
+        {
+            freeAimHeld = !freeAimHeld;
+        }
 
         if (freeAimHeld)
         {
@@ -80,20 +84,27 @@ public class FlashlightAim : MonoBehaviour
 
     private void ApplyDefaultLightSettings()
     {
-        light.pointLightOuterRadius = defaultRadius;
-        light.pointLightOuterAngle = defaultAngle;
-        NearHitbox.enabled = true;
-        AimHitbox.enabled = false;
+        flashLight.pointLightOuterRadius = defaultRadius;
+        flashLight.pointLightOuterAngle = defaultAngle;
+
+        if (NearHitbox != null)
+            NearHitbox.enabled = true;
+
+        if (AimHitbox != null)
+            AimHitbox.enabled = false;
     }
 
     private void ApplyAimLightSettings()
     {
-        light.pointLightOuterRadius = aimRadius;
-        light.pointLightOuterAngle = aimAngle;
-        NearHitbox.enabled = false;
-        AimHitbox.enabled = true;
-    }
+        flashLight.pointLightOuterRadius = aimRadius;
+        flashLight.pointLightOuterAngle = aimAngle;
 
+        if (NearHitbox != null)
+            NearHitbox.enabled = false;
+
+        if (AimHitbox != null)
+            AimHitbox.enabled = true;
+    }
 
     public void SetFacingDirection(float moveInputX)
     {

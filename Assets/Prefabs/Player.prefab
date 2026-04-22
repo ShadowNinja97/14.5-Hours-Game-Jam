@@ -128,6 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d518d2946b2074a8b9945a5b603e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightTrigger
+  lightOrigin: {fileID: 7068691774513508295}
+  lightBlockerMask:
+    serializedVersion: 2
+    m_Bits: 5120
 --- !u!50 &6533107155523373644
 Rigidbody2D:
   serializedVersion: 5
@@ -187,6 +191,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 990208586170627698}
+  - {fileID: 7068691774513508295}
   m_Father: {fileID: 8018335195386378304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2082914900302636634
@@ -262,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightAim
   player: {fileID: 8018335195386378304}
   mainCamera: {fileID: 0}
-  light: {fileID: 8268608392969510743}
+  flashLight: {fileID: 8268608392969510743}
   NearHitbox: {fileID: 1263264835757662190}
   AimHitbox: {fileID: 657500424250728960}
   mousePositionAction:
@@ -818,6 +823,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d518d2946b2074a8b9945a5b603e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightTrigger
+  lightOrigin: {fileID: 7068691774513508295}
+  lightBlockerMask:
+    serializedVersion: 2
+    m_Bits: 5120
 --- !u!50 &895825386761788894
 Rigidbody2D:
   serializedVersion: 5
@@ -845,3 +854,34 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!1 &7937294831952239234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7068691774513508295}
+  m_Layer: 9
+  m_Name: LightSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7068691774513508295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937294831952239234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5465874111116003059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
