@@ -17,7 +17,7 @@ public class Node : MonoBehaviour, ILightInteractable
     public UnityEvent fullChargeAction;
     public UnityEvent toggleOnAction;
     public UnityEvent toggleOffAction;
-    public UnityEvent chargeAtXAction;
+    public UnityEvent<float> chargeAtXAction;
     public ParticleFX[] Particles;
 
 
@@ -29,6 +29,7 @@ public class Node : MonoBehaviour, ILightInteractable
 
     [Header("Debug")]
     [SerializeField] private float currentCharge = 0f;
+    [SerializeField] private float chargePercentage = 0f;
     [SerializeField] private bool isCurrentlySeen = false;
     [SerializeField] private bool isActivated = false;
     [SerializeField] private bool toggleState = false;
@@ -101,6 +102,11 @@ public class Node : MonoBehaviour, ILightInteractable
                 isActivated = false;
             }
         }
+
+        chargePercentage = Mathf.Clamp(requiredCharge/currentCharge, 0, 1);
+        chargeAtXAction?.Invoke(chargePercentage);
+
+
         ApplyLightBrightness(nodeLight);
         ParticleValue();
     }
