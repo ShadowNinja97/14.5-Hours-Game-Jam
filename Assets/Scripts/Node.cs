@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
@@ -16,7 +17,9 @@ public class Node : MonoBehaviour, ILightInteractable
     public UnityEvent fullChargeAction;
     public UnityEvent toggleOnAction;
     public UnityEvent toggleOffAction;
+    public UnityEvent chargeAtXAction;
     public ParticleFX[] Particles;
+
 
     [Header("Node Stats")]
     public float chargeRate = 1f;
