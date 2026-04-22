@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1998076485811065270}
   - component: {fileID: 2203821472416641780}
   m_Layer: 0
-  m_Name: Node - Diamond
+  m_Name: Node - Sustain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1054723828, guid: ab40b55dc271b594bbbbc00d26dea3f3, type: 3}
+  m_Sprite: {fileID: 1629290581, guid: ab40b55dc271b594bbbbc00d26dea3f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,6 +168,10 @@ MonoBehaviour:
   toggleOffAction:
     m_PersistentCalls:
       m_Calls: []
+  chargeAtXAction:
+    m_PersistentCalls:
+      m_Calls: []
+  Particles: []
   chargeRate: 0.5
   requiredCharge: 2
   sustainDecayRate: 0.25
