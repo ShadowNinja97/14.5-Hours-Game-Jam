@@ -103,7 +103,7 @@ public class Node : MonoBehaviour, ILightInteractable
             }
         }
 
-        chargePercentage = Mathf.Clamp(requiredCharge/currentCharge, 0, 1);
+        chargePercentage = Mathf.Clamp(currentCharge / requiredCharge, 0, 1);
         chargeAtXAction?.Invoke(chargePercentage);
 
 
