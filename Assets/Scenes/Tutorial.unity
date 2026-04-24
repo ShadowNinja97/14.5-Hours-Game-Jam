@@ -8277,6 +8277,17 @@ Transform:
   - {fileID: 570110481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279316902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5400742245244924376, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+  m_PrefabInstance: {fileID: 7073937064935766005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c8d2f7477874d47a899b32a9334833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightManager
 --- !u!1 &1328931893
 GameObject:
   m_ObjectHideFlags: 0
@@ -26115,6 +26126,7 @@ MonoBehaviour:
   sustainDecayRate: 0.25
   chargedBrightness: 5
   currentCharge: 0
+  chargePercentage: 0
   isCurrentlySeen: 0
   isActivated: 0
   toggleState: 0
@@ -26176,6 +26188,7 @@ MonoBehaviour:
   sustainDecayRate: 0.25
   chargedBrightness: 5
   currentCharge: 0
+  chargePercentage: 0
   isCurrentlySeen: 0
   isActivated: 0
   toggleState: 0
@@ -26191,18 +26204,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 8871757918278629555}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1279316902}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
@@ -26210,15 +26235,31 @@ PrefabInstance:
       value: PlayAfterDelay
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: DefaultFadeAll
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: DoorReceiving, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: LightManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 2.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
       value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526215210833819479, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: DoorOpenEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5442794786156537599, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
@@ -26226,12 +26267,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5442794786156537599, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
+      propertyPath: PanPause
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442794786156537599, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: PanDuration
-      value: 2.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442794786156537599, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: VanishReturn
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5442794786156537599, guid: 9286f41b4eb6c7d49b86e011382af75f, type: 3}
       propertyPath: PanPosition.x
@@ -26496,7 +26541,19 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 3.2
+          m_FloatArgument: 2.45
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1279316902}
+        m_TargetAssemblyTypeName: LightManager, Assembly-CSharp
+        m_MethodName: DefaultFadeAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2.45
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -31417,10 +31474,11 @@ MonoBehaviour:
   WarpPosition: {x: 22.5, y: 0.5}
   Pan: 1
   PanPosition: {x: 30, y: 0.5}
-  PanDuration: 2.5
+  PanDuration: 0
+  PanPause: 1.25
   Vanish: 1
   VanishDelay: 0.2
-  VanishReturn: 0.5
+  VanishReturn: 1
 --- !u!4 &5704384001330358916
 Transform:
   m_ObjectHideFlags: 0
@@ -31596,6 +31654,71 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &7073937064935766005
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.98525
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.09425
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655397951259575082, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094348562731108487, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: m_Name
+      value: GameplayManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791846945628211120, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: clips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791846945628211120, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
+      propertyPath: 'clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 99fc88d952970634495310154dbabd83, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
 --- !u!4 &7153419762535984218
 Transform:
   m_ObjectHideFlags: 0
@@ -41490,3 +41613,4 @@ SceneRoots:
   - {fileID: 933606850}
   - {fileID: 1023270731}
   - {fileID: 2084848264}
+  - {fileID: 7073937064935766005}

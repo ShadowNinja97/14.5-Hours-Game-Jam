@@ -10,6 +10,7 @@ public class Warp : MonoBehaviour
     public bool Pan = false;
     public Vector2 PanPosition;
     public float PanDuration = 5f;
+    public float PanPause = 0f;
 
     [Header("Vanish Settings")]
     public bool Vanish = true;
@@ -72,6 +73,8 @@ public class Warp : MonoBehaviour
 
     private IEnumerator HandlePan()
     {
+        yield return new WaitForSeconds(PanPause);
+
         Vector3 startPos = mainCamera.transform.position;
         Vector3 targetPos = new Vector3(PanPosition.x, PanPosition.y, startPos.z);
 
@@ -87,5 +90,6 @@ public class Warp : MonoBehaviour
         }
 
         mainCamera.transform.position = targetPos;
+
     }
 }
