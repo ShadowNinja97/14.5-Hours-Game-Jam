@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 public class PlatformCollider : MonoBehaviour
 {
     public int DisabledAlpha = 50;
-    private TilemapCollider2D col;
+    public TilemapCollider2D col;
     private Tilemap tile;
 
     void Awake()

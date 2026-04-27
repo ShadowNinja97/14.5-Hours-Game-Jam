@@ -38,7 +38,8 @@ public class Node : MonoBehaviour, ILightInteractable
 
     void Awake()
     {
-        nodeLight = GetComponent<Light2D>();
+        if (nodeLight == null)
+            nodeLight = GetComponent<Light2D>();
     }
 
     public void OnLightSee()

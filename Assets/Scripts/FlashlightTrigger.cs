@@ -68,11 +68,36 @@ public class FlashlightTrigger : MonoBehaviour
         if (lightOrigin == null)
             lightOrigin = transform;
 
+        LightLOSOverride losOverride = target.GetComponent<LightLOSOverride>();
+
+        if (losOverride != null && losOverride.ShouldIgnoreAllBlockers())
+            return true;
+
         Vector2 start = lightOrigin.position;
         Vector2 end = target.bounds.center;
+        Vector2 direction = end - start;
+        float distance = direction.magnitude;
 
-        RaycastHit2D hit = Physics2D.Linecast(start, end, lightBlockerMask);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
+            start,
+            direction.normalized,
+            distance,
+            lightBlockerMask
+        );
 
-        return hit.collider == null;
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D blocker = hits[i].collider;
+
+            if (blocker == null)
+                continue;
+
+            if (losOverride != null && losOverride.ShouldIgnoreBlocker(blocker))
+                continue;
+
+            return false;
+        }
+
+        return true;
     }
 }

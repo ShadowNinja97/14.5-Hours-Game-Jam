@@ -24,7 +24,15 @@ public class ParticleFX : MonoBehaviour
             {
                 secondary.Play();
             }
+
+            emissions.rateOverTime = 0;
+            primary.Play();
         }
+    }
+
+    public void UpdateParticleEmissions(float percentage)
+    {
+        UpdateParticleEmissions(percentage, false);
     }
 
     public void UpdateDisplay(bool state)
