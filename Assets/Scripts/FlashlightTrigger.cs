@@ -8,6 +8,7 @@ public class FlashlightTrigger : MonoBehaviour
 
     [Header("LOS")]
     [SerializeField] private LayerMask lightBlockerMask;
+    [SerializeField] private LayerMask ignoreLOSLayerMask;
 
     private readonly HashSet<ILightInteractable> seenObjects = new();
 
@@ -65,25 +66,37 @@ public class FlashlightTrigger : MonoBehaviour
 
     private bool HasLineOfSight(Collider2D target)
     {
+        if (target == null)
+            return false;
+
         if (lightOrigin == null)
             lightOrigin = transform;
 
-        LightLOSOverride losOverride = target.GetComponent<LightLOSOverride>();
+        // Check target or target parent for LOS override.
+        LightLOSOverride losOverride = target.GetComponentInParent<LightLOSOverride>();
 
         if (losOverride != null && losOverride.ShouldIgnoreAllBlockers())
             return true;
 
         Vector2 start = lightOrigin.position;
-        Vector2 end = target.bounds.center;
+        Vector2 end = target.ClosestPoint(start);
+
         Vector2 direction = end - start;
         float distance = direction.magnitude;
 
+        if (distance <= 0.001f)
+            return true;
+
+        direction.Normalize();
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(
             start,
-            direction.normalized,
+            direction,
             distance,
             lightBlockerMask
         );
+
+        Debug.DrawLine(start, end, Color.red, 0.1f);
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -92,12 +105,23 @@ public class FlashlightTrigger : MonoBehaviour
             if (blocker == null)
                 continue;
 
+            // Ignore the target itself.
+            if (blocker == target)
+                continue;
+
+            // Ignore globally ignored layers, like Player.
+            if ((ignoreLOSLayerMask.value & (1 << blocker.gameObject.layer)) != 0)
+                continue;
+
+            // Ignore blockers specifically ignored by this target.
             if (losOverride != null && losOverride.ShouldIgnoreBlocker(blocker))
                 continue;
 
+            Debug.LogWarning($"Ran into: {blocker.gameObject.name}", blocker.gameObject);
             return false;
         }
 
         return true;
     }
+
 }

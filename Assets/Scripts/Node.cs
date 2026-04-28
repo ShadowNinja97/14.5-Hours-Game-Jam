@@ -20,7 +20,6 @@ public class Node : MonoBehaviour, ILightInteractable
     public UnityEvent<float> chargeAtXAction;
     public ParticleFX[] Particles;
 
-
     [Header("Node Stats")]
     public float chargeRate = 1f;
     public float requiredCharge = 1f;
@@ -100,6 +99,7 @@ public class Node : MonoBehaviour, ILightInteractable
             // If sustain drops fully, allow it to be reactivated later
             if (isActivated && currentCharge <= 0f)
             {
+                AudioManager.Instance.PlayClip(1);
                 isActivated = false;
             }
         }
@@ -127,9 +127,15 @@ public class Node : MonoBehaviour, ILightInteractable
             currentCharge = 0f;
 
             if (toggleState)
+            {
+                AudioManager.Instance.PlayClip(0);
                 toggleOnAction?.Invoke();
+            }
             else
+            {
+                AudioManager.Instance.PlayClip(1);
                 toggleOffAction?.Invoke();
+            }
         }
     }
 
@@ -144,6 +150,7 @@ public class Node : MonoBehaviour, ILightInteractable
         {
             currentCharge = requiredCharge;
             isActivated = true;
+            AudioManager.Instance.PlayClip(0);
             fullChargeAction?.Invoke();
         }
     }
@@ -157,6 +164,7 @@ public class Node : MonoBehaviour, ILightInteractable
         if (!isActivated && currentCharge >= requiredCharge)
         {
             isActivated = true;
+            AudioManager.Instance.PlayClip(0);
             fullChargeAction?.Invoke();
         }
     }

@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+
+    /*
+    [0] = Node Activated
+    [1] = Node Deactivated
+    [2] = Door Open
+    [3] = Door Unlocked
+    [4] = Player Jump
+    */
+
+
     public static AudioManager Instance;
     public AudioClip[] clips;
-    private AudioSource source;
-
+    public AudioSource mainSource;
+    public AudioSource footstepSource;
     void Awake()
     {
         if (Instance != null)
@@ -14,12 +24,19 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
-        source = GetComponent<AudioSource>();
+        mainSource = GetComponent<AudioSource>();
     }
 
     public void PlayClip(int clip)
     {
-        source.PlayOneShot(clips[clip]);
+        mainSource.PlayOneShot(clips[clip]);
+        if (clip == 4) footstepSource.Stop();
+    }
+
+    public void PlayFootsteps(float variance)
+    {
+        footstepSource.pitch = Random.Range(1 - variance, 1 + variance);
+        footstepSource.Play();
     }
 
 }

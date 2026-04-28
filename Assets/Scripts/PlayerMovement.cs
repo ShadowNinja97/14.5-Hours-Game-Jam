@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
 
     public PlayerInputHandler input;
     public FlashlightAim flashlightAim;
+    public Animator spriteAnimator;
+    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer backRenderer;
 
     [Header("Movement")]
     public float moveSpeed = 8f;
@@ -50,6 +53,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 slopeNormalPerp;
 
+    [Header("Footsteps")]
+    [SerializeField] private float footstepInterval = 0.4f;
+    [SerializeField] private float footstepVariance = 0.1f;
+    [SerializeField] private float minMoveSpeed = 0.2f;
+
+    private float footstepTimer;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -87,7 +97,10 @@ public class PlayerMovement : MonoBehaviour
 
         float accelRate;
         if (isGrounded)
+        {
             accelRate = Mathf.Abs(targetSpeed) > 0.01f ? acceleration : deceleration;
+            spriteAnimator.SetBool("Jumping", false);
+        }
         else
             accelRate = Mathf.Abs(targetSpeed) > 0.01f ? airAcceleration : airDeceleration;
 
@@ -114,6 +127,29 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 1;
 
         }
+
+        if (Mathf.Abs(inputX) > 0.1f)
+        {
+            spriteAnimator.SetBool("Walking", true);
+        }
+        else
+        {
+            spriteAnimator.SetBool("Walking", false);
+        }
+
+
+        if (inputX > 0)
+        {
+            spriteRenderer.flipX = false;
+            backRenderer.flipX = false;
+        }
+        else if (inputX < 0)
+        {
+            spriteRenderer.flipX = true;
+            backRenderer.flipX = true;
+        }
+
+        HandleFootsteps();
     }
 
     private void HandleGravity()
@@ -141,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        spriteAnimator.SetBool("Jumping", true);
+        AudioManager.Instance.PlayClip(4);
     }
 
     private void CheckGround()
@@ -156,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
             canJump = true;
+
     }
 
     private void SlopeCheck()
@@ -252,6 +291,23 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.DrawLine(checkPos, checkPos + Vector3.right * slopeCheckDistance);
             Gizmos.DrawLine(checkPos, checkPos + Vector3.left * slopeCheckDistance);
             Gizmos.DrawLine(checkPos, checkPos + Vector3.down * slopeCheckDistance);
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        if (!isGrounded || Mathf.Abs(rb.linearVelocity.x) < minMoveSpeed)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        footstepTimer -= Time.deltaTime;
+
+        if (footstepTimer <= 0f)
+        {
+            AudioManager.Instance.PlayFootsteps(footstepVariance);
+            footstepTimer = footstepInterval;
         }
     }
 }
