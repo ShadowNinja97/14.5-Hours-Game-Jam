@@ -66,15 +66,20 @@ public class FlashlightTrigger : MonoBehaviour
 
     private bool HasLineOfSight(Collider2D target)
     {
-        Debug.Log("Trying to connect to " + target.gameObject.name);
         if (target == null)
             return false;
 
         if (lightOrigin == null)
             lightOrigin = transform;
 
+        // Check target or target parent for LOS override.
+        LightLOSOverride losOverride = target.GetComponentInParent<LightLOSOverride>();
+
+        if (losOverride != null && losOverride.ShouldIgnoreAllBlockers())
+            return true;
+
         Vector2 start = lightOrigin.position;
-        Vector2 end = target.bounds.center;
+        Vector2 end = target.ClosestPoint(start);
 
         Vector2 direction = end - start;
         float distance = direction.magnitude;
@@ -83,13 +88,6 @@ public class FlashlightTrigger : MonoBehaviour
             return true;
 
         direction.Normalize();
-
-        float startOffset = 0.15f;
-        start += direction * startOffset;
-        distance -= startOffset;
-
-        if (distance <= 0.001f)
-            return true;
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(
             start,
@@ -102,21 +100,24 @@ public class FlashlightTrigger : MonoBehaviour
 
         for (int i = 0; i < hits.Length; i++)
         {
-            Collider2D hit = hits[i].collider;
+            Collider2D blocker = hits[i].collider;
 
-            if (hit == null)
+            if (blocker == null)
                 continue;
 
-            // Ignore the target itself
-            if (hit == target)
+            // Ignore the target itself.
+            if (blocker == target)
                 continue;
 
-            if ((ignoreLOSLayerMask.value & (1 << hit.gameObject.layer)) != 0)
+            // Ignore globally ignored layers, like Player.
+            if ((ignoreLOSLayerMask.value & (1 << blocker.gameObject.layer)) != 0)
                 continue;
 
-            if (hits[i].distance < 0.05f)
+            // Ignore blockers specifically ignored by this target.
+            if (losOverride != null && losOverride.ShouldIgnoreBlocker(blocker))
                 continue;
-            Debug.LogWarning("Ran into " + hit.gameObject.name);
+
+            Debug.LogWarning($"Ran into: {blocker.gameObject.name}", blocker.gameObject);
             return false;
         }
 

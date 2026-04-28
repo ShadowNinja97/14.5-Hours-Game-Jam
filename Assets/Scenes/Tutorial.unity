@@ -41361,18 +41361,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6791846945628211120, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
-      propertyPath: clips.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6791846945628211120, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
-      propertyPath: 'clips.Array.data[4]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 68c4bd946be6bcd4eb49afaebab261ac, type: 3}
-    - target: {fileID: 6791846945628211120, guid: a5bb22f6b07fd904e9029911913e6d90, type: 3}
-      propertyPath: 'clips.Array.data[5]'
-      value: 
-      objectReference: {fileID: 8300000, guid: e7c7ec9b21e439d47aa1f8bc69f3fe6a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
