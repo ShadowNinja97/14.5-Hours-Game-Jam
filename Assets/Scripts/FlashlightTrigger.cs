@@ -8,6 +8,7 @@ public class FlashlightTrigger : MonoBehaviour
 
     [Header("LOS")]
     [SerializeField] private LayerMask lightBlockerMask;
+    [SerializeField] private LayerMask ignoreLOSLayerMask;
 
     private readonly HashSet<ILightInteractable> seenObjects = new();
 
@@ -65,39 +66,61 @@ public class FlashlightTrigger : MonoBehaviour
 
     private bool HasLineOfSight(Collider2D target)
     {
+        Debug.Log("Trying to connect to " + target.gameObject.name);
+        if (target == null)
+            return false;
+
         if (lightOrigin == null)
             lightOrigin = transform;
 
-        LightLOSOverride losOverride = target.GetComponent<LightLOSOverride>();
-
-        if (losOverride != null && losOverride.ShouldIgnoreAllBlockers())
-            return true;
-
         Vector2 start = lightOrigin.position;
         Vector2 end = target.bounds.center;
+
         Vector2 direction = end - start;
         float distance = direction.magnitude;
 
+        if (distance <= 0.001f)
+            return true;
+
+        direction.Normalize();
+
+        float startOffset = 0.15f;
+        start += direction * startOffset;
+        distance -= startOffset;
+
+        if (distance <= 0.001f)
+            return true;
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(
             start,
-            direction.normalized,
+            direction,
             distance,
             lightBlockerMask
         );
 
+        Debug.DrawLine(start, end, Color.red, 0.1f);
+
         for (int i = 0; i < hits.Length; i++)
         {
-            Collider2D blocker = hits[i].collider;
+            Collider2D hit = hits[i].collider;
 
-            if (blocker == null)
+            if (hit == null)
                 continue;
 
-            if (losOverride != null && losOverride.ShouldIgnoreBlocker(blocker))
+            // Ignore the target itself
+            if (hit == target)
                 continue;
 
+            if ((ignoreLOSLayerMask.value & (1 << hit.gameObject.layer)) != 0)
+                continue;
+
+            if (hits[i].distance < 0.05f)
+                continue;
+            Debug.LogWarning("Ran into " + hit.gameObject.name);
             return false;
         }
 
         return true;
     }
+
 }

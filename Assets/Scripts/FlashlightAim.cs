@@ -24,6 +24,7 @@ public class FlashlightAim : MonoBehaviour
     public float defaultAngle = 40f;
     public float aimRadius = 6f;
     public float aimAngle = 20f;
+    public float aimAngleOffset = 45f;
 
     private bool freeAimHeld = false;
 
@@ -73,13 +74,13 @@ public class FlashlightAim : MonoBehaviour
         Vector2 direction = (mouseWorldPos - player.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + aimAngleOffset);
     }
 
     private void AimForward()
     {
         float angle = facingRight ? 0f : 180f;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle + aimAngleOffset);
     }
 
     private void ApplyDefaultLightSettings()

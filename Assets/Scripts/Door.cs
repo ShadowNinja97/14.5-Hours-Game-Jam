@@ -13,10 +13,6 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerInRange = collision.GetComponent<PlayerInputHandler>();
-        if (playerInRange != null)
-        {
-            Debug.Log("[Door] - Player entered range");
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -25,7 +21,6 @@ public class Door : MonoBehaviour
         if (pI != null && pI == playerInRange)
         {
             playerInRange = null;
-            Debug.Log("[Door] - Player left range");
         }
     }
 
@@ -33,10 +28,8 @@ public class Door : MonoBehaviour
     {
         if (playerInRange != null && playerInRange.InteractPressed && !Locked)
         {
-            Debug.Log("[Door] - Interact Called");
             DoorOpenEvent?.Invoke();
-            GetComponent<AudioSource>().Play();
-            Debug.Log("[Door] - Event Invoked");
+            AudioManager.Instance.PlayClip(2);
         }
     }
 

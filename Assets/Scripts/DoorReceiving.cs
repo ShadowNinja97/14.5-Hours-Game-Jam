@@ -10,6 +10,6 @@ public class DoorReceiving : MonoBehaviour
     IEnumerator DelaySound(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        GetComponent<AudioSource>().Play();
+        AudioManager.Instance.PlayClip(2);
     }
 }
