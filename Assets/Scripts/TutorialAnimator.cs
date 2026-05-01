@@ -6,6 +6,7 @@ public class TutorialAnimator : MonoBehaviour
     public GameObject[] tutorials;
     public PlayerInputHandler ph;
     public FlashlightAim fa;
+    public Animator logo;
 
     public void EnableAnimation(int tutorial)
     {
@@ -34,6 +35,7 @@ public class TutorialAnimator : MonoBehaviour
         {
             tutorials[0].GetComponent<Animator>().SetTrigger("Triggered");
             DelayedDisable(0);
+            logo.SetTrigger("Fade");
         }
     }
 
