@@ -13,6 +13,7 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerInRange = collision.GetComponent<PlayerInputHandler>();
+        collision.GetComponent<PlayerMovement>().doorBlocked = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -22,6 +23,8 @@ public class Door : MonoBehaviour
         {
             playerInRange = null;
         }
+        collision.GetComponent<PlayerMovement>().doorBlocked = false;
+
     }
 
     private void Update()

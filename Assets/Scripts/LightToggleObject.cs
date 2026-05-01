@@ -5,6 +5,7 @@ public class LightToggleObject : MonoBehaviour, ILightInteractable
 {
     [Header("Toggle Settings")]
     public bool startsEnabled = true;
+    public bool chargeByLight = true;
     public float chargeRate = 1f;
     public float requiredCharge = 1f;
     public bool requireLightOffBeforeRetoggle = true;
@@ -38,11 +39,15 @@ public class LightToggleObject : MonoBehaviour, ILightInteractable
 
     public void OnLightSee()
     {
+        if (!chargeByLight) return;
+
         isCurrentlySeen = true;
     }
 
     public void OnLightCharge()
     {
+        if (!chargeByLight) return;
+
         if (!canToggleAgain)
             return;
 
@@ -65,6 +70,7 @@ public class LightToggleObject : MonoBehaviour, ILightInteractable
 
     public void OnLightOff()
     {
+        if (!chargeByLight) return;
         isCurrentlySeen = false;
         currentCharge = 0f;
         SendChargePercent();
@@ -72,7 +78,7 @@ public class LightToggleObject : MonoBehaviour, ILightInteractable
         canToggleAgain = true;
     }
 
-    private void ToggleState()
+    public void ToggleState()
     {
         isEnabledState = !isEnabledState;
         ApplyState(isEnabledState);

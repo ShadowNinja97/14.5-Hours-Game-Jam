@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canWalkOnSlope;
     private bool isJumping;
     private bool canJump;
+    public bool doorBlocked;
 
     private float slopeDownAngle;
     private float slopeSideAngle;
@@ -67,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (noFriction != null)
             playerCollider.sharedMaterial = noFriction;
+
+        doorBlocked = false;
     }
 
     private void Update()
@@ -76,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (flashlightAim != null)
             flashlightAim.SetFacingDirection(input.MoveInput.x);
 
-        if (input.JumpPressed && canJump)
+        if (input.JumpPressed && canJump && !doorBlocked)
         {
             Jump();
         }

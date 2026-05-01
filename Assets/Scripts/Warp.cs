@@ -92,4 +92,11 @@ public class Warp : MonoBehaviour
         mainCamera.transform.position = targetPos;
 
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.crimson;
+
+        Gizmos.DrawWireSphere(WarpPosition, 0.5f);
+    }
 }
