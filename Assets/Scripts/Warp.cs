@@ -11,6 +11,7 @@ public class Warp : MonoBehaviour
     public Vector2 PanPosition;
     public float PanDuration = 5f;
     public float PanPause = 0f;
+    public float PanSize = 5.6f;
 
     [Header("Vanish Settings")]
     public bool Vanish = true;
@@ -90,6 +91,7 @@ public class Warp : MonoBehaviour
         }
 
         mainCamera.transform.position = targetPos;
+        mainCamera.orthographicSize = PanSize;
 
     }
 

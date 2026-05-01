@@ -31,7 +31,7 @@ public class Lock : MonoBehaviour
 
         rb.simulated = true;
         cc.enabled = true;
-        AudioManager.Instance.PlayClip(3);
+        //AudioManager.Instance.PlayClip(3);
 
         Vector2 randomForce = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2));
         randomForce *= LaunchDirection;
