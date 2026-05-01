@@ -35,6 +35,8 @@ public class Node : MonoBehaviour, ILightInteractable
     [SerializeField] private bool canToggleAgain = true;
     [SerializeField] private Light2D nodeLight;
 
+    public bool HaltUpdate;
+
     void Awake()
     {
         if (nodeLight == null)
@@ -189,7 +191,7 @@ public class Node : MonoBehaviour, ILightInteractable
 
     public void ApplyLightBrightness(Light2D light)
     {
-        if (light == null)
+        if (light == null || HaltUpdate)
             return;
 
         float brightnessPercent;

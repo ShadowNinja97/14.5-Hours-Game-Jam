@@ -7,6 +7,7 @@ public class LightManager : MonoBehaviour
     public static LightManager Instance;
 
     private Coroutine fadeRoutine;
+    public Node[] nodes;
 
     void Awake()
     {
@@ -17,6 +18,12 @@ public class LightManager : MonoBehaviour
         }
 
         Instance = this;
+        RecalculateNodes();
+    }
+
+    public void RecalculateNodes()
+    {
+        nodes = FindObjectsByType<Node>();
     }
 
 
@@ -33,6 +40,11 @@ public class LightManager : MonoBehaviour
         FadeAllToDark();
     }
 
+    public void LongFadeAll()
+    {
+        FadeAllToDark(1, 2);
+    }
+
 
     private IEnumerator FadeAllToDarkRoutine(float speed, float duration)
     {
@@ -44,12 +56,13 @@ public class LightManager : MonoBehaviour
         {
             originalIntensities[i] = sceneLights[i].intensity;
         }
-
+        foreach (Node n in nodes) n.HaltUpdate = true;
         yield return StartCoroutine(FadeLights(sceneLights, originalIntensities, 0f, speed));
 
         yield return new WaitForSeconds(duration);
 
         yield return StartCoroutine(FadeLights(sceneLights, originalIntensities, 1f, speed));
+        foreach (Node n in nodes) n.HaltUpdate = false;
 
         fadeRoutine = null;
     }
@@ -90,5 +103,6 @@ public class LightManager : MonoBehaviour
 
             lights[i].intensity = originalIntensities[i] * targetPercent;
         }
+
     }
 }

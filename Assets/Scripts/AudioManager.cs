@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     [0] = Node Activated
     [1] = Node Deactivated
     [2] = Door Open
-    [3] = Door Unlocked
+    [3] = LEAVE EMPTY
     [4] = Player Jump
     */
 

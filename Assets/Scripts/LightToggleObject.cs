@@ -12,7 +12,7 @@ public class LightToggleObject : MonoBehaviour, ILightInteractable
 
     [Header("Visual Settings")]
     [Range(0f, 1f)] public float enabledAlpha = 1f;
-    [Range(0f, 1f)] public float disabledAlpha = 0.5f;
+    [Range(0f, 1f)] public float disabledAlpha = 0.1f;
 
     [Header("Objects To Toggle")]
     public Collider2D[] collidersToToggle;
