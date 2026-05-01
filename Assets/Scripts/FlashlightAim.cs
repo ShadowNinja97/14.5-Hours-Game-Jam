@@ -25,13 +25,19 @@ public class FlashlightAim : MonoBehaviour
     public float aimRadius = 6f;
     public float aimAngle = 20f;
     public float aimAngleOffset = 45f;
+    public float returnRotationSpeed = 360f; // degrees per second
+
 
     private bool freeAimHeld = false;
+    private bool previousFacingRight;
 
     private void Awake()
     {
         if (mainCamera == null)
             mainCamera = Camera.main;
+
+        previousFacingRight = facingRight;
+
     }
 
     private void OnEnable()
@@ -79,8 +85,35 @@ public class FlashlightAim : MonoBehaviour
 
     private void AimForward()
     {
-        float angle = facingRight ? 0f : 180f;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + aimAngleOffset);
+        float finalAngle = facingRight ? 0f : 180f;
+        finalAngle += aimAngleOffset;
+
+        bool justFlippedDirection = previousFacingRight != facingRight;
+
+        float targetAngle = finalAngle;
+
+        if (justFlippedDirection)
+        {
+            float currentAngle = transform.eulerAngles.z;
+
+            // Nudge upward first so Unity avoids the downward 180-degree snap path.
+            targetAngle = currentAngle + (facingRight ? -20f : 20f);
+        }
+
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            returnRotationSpeed * Time.deltaTime
+        );
+
+        Quaternion finalRotation = Quaternion.Euler(0f, 0f, finalAngle);
+
+        if (Quaternion.Angle(transform.rotation, finalRotation) < 1f)
+        {
+            previousFacingRight = facingRight;
+        }
     }
 
     private void ApplyDefaultLightSettings()

@@ -151,6 +151,7 @@ MonoBehaviour:
   aimRadius: 10
   aimAngle: 20
   aimAngleOffset: -45
+  returnRotationSpeed: 600
 --- !u!1 &558291799125789483
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +649,22 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 87db588e-acb5-4d3b-8f2e-465a58cea796
       m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 896842c6-fc0a-4676-a934-eaf1c9997ea3
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 02b8887e-b178-428c-aa36-7c382686af56
+      m_Path: <Keyboard>/w
       m_Interactions: 
       m_Processors: 
       m_Groups: 
