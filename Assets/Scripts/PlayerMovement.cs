@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minMoveSpeed = 0.2f;
 
     private float footstepTimer;
+    private float timeSinceGrounded = 0;
 
     private void Awake()
     {
@@ -91,6 +92,19 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleGravity();
         ClampSlopePop();
+        KillFun();
+    }
+
+    private void KillFun() // kills funny coyote jumps
+    {
+        if (!isGrounded)
+        {
+            timeSinceGrounded += Time.deltaTime;
+        }
+        if (!isGrounded && timeSinceGrounded >= 0.15f)
+        {
+            canJump = false;
+        }
     }
 
     private void HandleMovement()
@@ -196,7 +210,10 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
 
         if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
+        {
+            timeSinceGrounded = 0f;
             canJump = true;
+        }
 
     }
 
