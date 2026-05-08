@@ -1,24 +1,10 @@
 # 14.5-Hours-Game-Jam
 
-This is a Unity Project that is playable on the itch submission page:
+This is a Unity Project that is playable on the itch submission page (with description):
 https://worthyotter.itch.io/slimeandshine 
 
 Demo Video:
 https://drive.google.com/file/d/13BBWWgECi0T2lkq95mKrM56oRhncRqC2/view?usp=sharing
 
-Here is the game descripion from itch:
-Blob. The theme we chose was In The Dark, and in order to fit the theme of in the dark we decided to make a puzzle game based around a character that controls a flashlight. You play as a slime who swallowed a flashlight that helps light up the room, and allowing you to interact with the various mechanics of the world like moving platforms in order to solve the level.
-
-Controls:
-
-WASD/Arrows: Move
-
-Up/W: Interact
-
-Space/Up/W: Jump
-
-C: Toggle Flashlight mode
-
-Cursor: Shines the flashlight in the direction of the cursor
-
-Created using the Unity game engine, in collaboration with @Passafishy.
+Markdown Report:
+After a few failed attempts at completing a game jam with my friends, we decided that the EA assignment would be a good motivator to finally commit to a game jam fully. The jam that we went with was the “14-Day and 12 Hour Jam.” The jam was fairly open-ended, providing a few different themes to choose from. We ended up going with the theme “in the dark.” We then had to decide whether to do 2D or 3D. We wanted to make sure we had a reasonable scope for the project, so we ended up going with 2D. After brainstorming, we landed on the idea of a platformer puzzle game where the player is in a dimly lit cave room and has to reach the exit door for each level by using a flashlight to directly interact with various objects. The interactions can range from a node making a platform appear, move, etc. My role in this project was to create the level designs as well as the creative lead for the game. One of my friends essentially had me plan out all the mechanics needed for the game, and he would help create the systems and scripts to make all the functionality work. I would use that functionality to create level designs using a tileset from an asset pack and object prefabs with scripts attached. The first 5 rooms are essentially tutorial rooms where each small room introduces the player to a new mechanic. After that, there are 3 real levels that combine all the mechanics and have a real level design intent behind them. Our process late into the jam was an iterative process where my friend would polish the levels I had finished the layout of, while I made new ones. We then repeated that until we had to stop and test before submitting. While testing late at night, we encountered a few bugs. One bug that somehow went unnoticed until the end was that there was infinite coyote timing, which created a few skips in my level designs. While they were pretty funny, we wanted to keep the game as polished as possible before uploading. At the time of writing this, the rankings of the jam have not been released; however, we have got a few comments on our page of good feedback. One of the comments said, “Wow this is the most impressive game of the jam I've played so far. The atmosphere with the moody lighting and soothing music is very nice. The puzzles are really well designed, this was something I struggled a lot with in my game and probably could've used some of your advice on level design!” This made us really happy that our first real attempt at a jam received a good reception and is motivating for me as I continue to work on UX and human-centered design as my primary industry interest.
